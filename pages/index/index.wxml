@@ -1,0 +1,27 @@
+<wxs module="qiphon">
+  var aa = "this is wxs";
+  function bb(e){
+    console.log(e);
+  }
+  module.exports = {
+    a:aa
+    bb:bb
+  }
+</wxs>
+<!--index.wxml-->
+<view class="container" bindtap="{{qiphon.bb(44,22)}}">
+  <view class='nav'>
+    <scroll-view scroll-x scroll-with-animation="{{true}}" enable-back-to-top scroll-into-view="{{'nav'+(activeNav>0?activeNav-1:activeNav)}}">
+      <block wx:for="{{navData}}" wx:key="{{index}}">
+        <view class='{{activeNav===index?"active":""}}' id="{{'nav'+index}}" data-key="{{index}}" bindtap="changeNav">
+          {{item}}
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <view class='content' bindtouchstart='navTouchSt' bindtouchend='navTouchEnd'>
+    <block wx:for="{{showData}}" wx:key="{{index}}">
+      {{item}}
+    </block>
+  </view>
+</view>

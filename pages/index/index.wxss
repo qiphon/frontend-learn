@@ -1,0 +1,64 @@
+view, scroll-view, text {
+  box-sizing: border-box;
+}
+
+.nav {
+  /* overflow: hidden;  */
+  height: 50rpx;
+}
+
+.nav scroll-view {
+  height: 50rpx;
+  white-space: nowrap;
+}
+
+.nav view {
+  display: inline-block;
+  width: 200rpx;
+  height: 50rpx;
+  border: 1rpx solid #ccc;
+  text-align: center;
+}
+
+.nav .active {
+  color: red;
+}
+
+.content {
+  height: calc(100vh - 50rpx);
+  background: #eee;
+}
+/* 滚动条 */
+::-webkit-scrollbar-thumb:horizontal {
+  /*水平滚动条的样式*/
+  width: 0;
+  background-color:transparent;
+  -webkit-border-radius: 0;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: transparent; /*滚动条的背景颜色*/
+  -webkit-border-radius: 0; /*滚动条的圆角宽度*/
+}
+
+::-webkit-scrollbar {
+  width: 0; /*滚动条的宽度*/
+  height: 0; /*滚动条的高度*/
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  /*垂直滚动条的样式*/
+  height: 0;
+  background-color: transparent;
+  -webkit-border-radius: 0;
+  outline: 0;
+  outline-offset: 0;
+  border: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /*滚动条的hover样式*/
+  height: 0;
+  background-color: 0;
+  -webkit-border-radius: 0;
+}

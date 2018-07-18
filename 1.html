@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://www.w3school.com.cn/jquery/jquery.js"></script>
+    <style>
+        body{
+            height:10000px;
+        }
+        span[data-title] {
+            position: relative;
+        }
+
+        span[data-title]:hover:after {
+            position: absolute;
+            content: attr(data-title);
+            top: 150%;
+            left: 50%;
+            transform: translate(-50%);
+            white-space: nowrap;
+        }
+
+        @-moz-document url-prefix(http: //),url-prefix(https://) {   
+        /* 滚动条颜色 */
+
+            scrollbar {
+                -moz-appearance: none !important;
+                background: rgb(0, 255, 0) !important;
+            }
+
+            /* 滚动条按钮颜色 */
+
+            thumb, scrollbarbutton {
+                -moz-appearance: none !important;
+                background-color: rgb(0, 0, 255) !important;
+            }
+
+            /* 鼠标悬停时按钮颜色 */
+
+            thumb:hover, scrollbarbutton:hover {
+                -moz-appearance: none !important;
+                background-color: rgb(255, 0, 0) !important;
+            }
+
+            /* 隐藏上下箭头 */
+
+            scrollbarbutton {
+                display: none !important;
+            }
+
+            /* 纵向滚动条宽度 */
+
+            scrollbar[orient="vertical"] {
+                min-width: 15px !important;
+            }
+
+        }
+    </style>
+    <!-- <script src="./defer.js" defer></script> -->
+</head>
+
+<body>
+    <h1>hello,i'm qiphon . i'm from
+        <span data-title="China">CN</span>.</h1>
+    <form action="" id="reg">
+        <input type="text" name="uname" id="user">
+        <input type="text" name="password" id="password">
+        <style>
+            .choose {
+                counter-reset: fruit 0;
+            }
+
+            .choose input:checked {
+                counter-increment: fruit 2;
+            }
+
+            .counter::before {
+                content: counter(fruit)
+            }
+        </style>
+        <div class="choose">
+            <label for="">
+                <input type="checkbox">香蕉
+            </label>
+            <label for="">
+                <input type="checkbox">苹果
+            </label>
+        </div>
+        <p>
+            你选择了
+            <span class="counter"></span>种水果
+        </p>
+    </form>
+    <script>
+        // window.history.pushState({a:11},'我是',"?a=2")
+        // window.addEventListener('popstate',event=>{
+        //     console.log(event)
+        // })
+        window.addEventListener('hashchange',event=>{
+            console.log(event)
+        })
+        //hash
+        window.location.hash='#a=1'
+
+        var choose = document.getElementsByClassName('choose')[0]
+        choose.onclick = function(){
+            console.log(window.location.hash)
+            window.location.hash = "#b=8"
+            // var b= window.location.hash.replace("#a=",'')
+            // console.log(b)
+        }
+    </script>
+</body>
+</html>
