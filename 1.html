@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="http://www.w3school.com.cn/jquery/jquery.js"></script>
     <style>
         body{
             height:10000px;
@@ -66,53 +65,139 @@
 <body>
     <h1>hello,i'm qiphon . i'm from
         <span data-title="China">CN</span>.</h1>
-    <form action="" id="reg">
+    <form action="" id="reg" draggable="false">
         <input type="text" name="uname" id="user">
         <input type="text" name="password" id="password">
-        <style>
-            .choose {
-                counter-reset: fruit 0;
-            }
-
-            .choose input:checked {
-                counter-increment: fruit 2;
-            }
-
-            .counter::before {
-                content: counter(fruit)
-            }
-        </style>
-        <div class="choose">
-            <label for="">
-                <input type="checkbox">香蕉
-            </label>
-            <label for="">
-                <input type="checkbox">苹果
-            </label>
-        </div>
-        <p>
-            你选择了
-            <span class="counter"></span>种水果
-        </p>
+        <input type="file" name="file">
     </form>
+    <img id="test-pic" src="about:blank" alt="">
     <script>
-        // window.history.pushState({a:11},'我是',"?a=2")
-        // window.addEventListener('popstate',event=>{
-        //     console.log(event)
-        // })
-        window.addEventListener('hashchange',event=>{
-            console.log(event)
-        })
-        //hash
-        window.location.hash='#a=1'
-
-        var choose = document.getElementsByClassName('choose')[0]
-        choose.onclick = function(){
-            console.log(window.location.hash)
-            window.location.hash = "#b=8"
-            // var b= window.location.hash.replace("#a=",'')
-            // console.log(b)
+        let db = window.openDatabase("test_db","v1.0","qiphon db test",2*1024*1024)
+        console.log(db)
+        //插入数据
+        let order = {
+            orderId : 1010,
+            format_city:"New York",
+            lat:"12423423",
+            lng:"-23",
+            price:12,
+            createTime:new Date().getTime()
         }
+        db.transaction(tx=>{
+            console.log('create',tx)
+            tx.executeSql("create table if not exists order_data(order_id primary key,format_city,lat,lng,price,create_time)",[],null,
+            function(tx,err){
+                throw(`execute sql failed : ${err.code} ${err.message}`)
+            })
+        })
+        //插入数据
+        db.transaction(tx=>{
+            console.log(tx)
+            tx.executeSql(`insert into order_data values(${order.orderId},'${order.format_city}',${order.lat},${order.lng},${order.price},${order.createTime})`)
+            },(err)=>{
+            console.log("操作失败",err)
+        })
+    </script>
+    <script src="./node_modules/exif-js/exif.js"></script>
+    <script>
+        "use strict"
+        var form = document.forms.namedItem('reg')
+        let handler = {
+            $img:null,
+            init(obj){
+                let {$container,$img}=obj
+                this.$img = $img
+                //需要把dragover的默认行为取消掉，不然会跳页
+                $container.addEventListener("dragover",function(event){
+                    event.preventDefault();
+                })
+                $container.addEventListener("drop",function(event){
+                    event.preventDefault();
+                    //这里获取拖过来的文件，为一个file对象
+                    // console.log(event)
+                    let file = event.dataTransfer.files[0];
+                    // console.log(file)
+                    handler.handleDrop(this,file);
+                })
+            },
+            handleDrop($container,file){
+                // console.log($img)
+                handler.readImgFile({file,$container})
+            },
+            readImgFile(obj){
+                let {file,$container} = obj
+                let reader = new FileReader(file)
+                EXIF.getData(file,()=>{
+                    let orientation = this.exifdata.orientation,
+                        rotateDeg = 0;
+                    //如果不是ios拍的照片或者是横拍的，则不用处理，直接读取
+                    if(typeof orientation === "undefined" || orientation === 1){
+                        //原本的readImgFile，添加一个rotateDeg的参数
+                        handler.doReadImgFile({file,$container,rotateDeg})
+                    }else{ //否则用canvas旋转
+                        rotateDeg = orientation === 6 ? 90*Math.PI/180 :
+                                    orientation === 8 ? -90*Math.PI/180 :
+                                    orientation === 3 ? 180*Math.PI/180 : 0
+                        handler.doReadImgFile(file,$container,rotateDeg)
+                    }
+                })
+                // console.log(reader)
+                //根据mime type 检查用户上传的是否是图片
+                if(file.type.split("/")[0] !== "image"){
+                    alert("不支持的文件类型")
+                    return;
+                }
+                reader.onload = function(event){
+                    // console.log(ONE_MB)
+                    // console.log(event)
+                    var base64 = event.currentTarget.result;
+                    if(file.size>1024*1024){
+                        document.body.style.cssText=";opacity:0.5;"
+                    }//因为这里图片太大会被卡一下，整个页面会不可操作
+                    // console.dir(handler.$img)
+                    handler.$img.src=base64;
+                    //还原
+                    if(file.size > 1024*1024){
+                        document.body.style.cssText=";opacity:0.5;"
+                    }
+
+                    handler.compressAndUpload({base64,file,$container})
+                }
+                reader.readAsDataURL(file);  //二进制转成base64  
+            },
+            compressAndUpload(obj){
+                let {base64,file,$container}=obj
+                
+            },
+            compress(obj){
+                let {img,maxWidth,mineType} = obj
+                let cvs = document.createElement('canvas')
+                let width = img.naturalWidth,
+                    height= img.naturalHeight,
+                    imgRatio = width/height;
+                // 如果图片维度超过了给定的max-width 1500
+                //为了保持图片宽高比，计算画布的大小
+                if(width > 1500){
+                    width = 1500;
+                    height = width / imgRatio;
+                }
+                cvs.height = height;
+                cvs.width = width;
+                let ctx = cvs.getContext("2d")
+                ctx.drawImage(img,0,0,img.naturalWidth,img.naturalHeight,0,0,width,height)
+                //图片质量进行适当压缩
+                let quality = width >= 1500? 0.5 :
+                              width > 600 ? 0.6 :1;
+                let newImageData = cvs.toDataURL(mineType,quality);
+                let resultImg = new Image()
+                resultImg.src = newImageData;
+                return resultImg;
+            }
+        }
+        handler.init({
+            $container:form['file'],
+            $img : document.getElementById('test-pic')
+        })
     </script>
 </body>
 </html>
