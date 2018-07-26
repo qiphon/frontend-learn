@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>居中布局</title>
+    <style>
+        div,img,html,body{
+            margin:0;
+            padding: 0 ;
+        }
+        .clearfix:after{
+            content:"";
+            height: 0;
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+        .container1{
+            display:flex;
+            height: 500px;
+            align-items: center;
+            justify-content: center;
+            background:#ccc;
+        }
+
+        /*示例2*/
+        .container2{
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background:cadetblue;
+        }
+        .container2 img{
+            position: absolute;
+            bottom:0 ;
+            top:0;
+            right:0;
+            left:0;
+            margin: auto;
+        }
+        /*示例3*/
+        .container3{
+            margin-top: 20px;
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background:rgb(125, 86, 231);
+        }
+        .container3 img{
+            position: absolute;
+            bottom:-9999px ;
+            top:-9999px;
+            right:-9999px;
+            left:-9999px;
+            margin: auto;
+        }
+
+        /* 浮动布局 */
+        .float{
+            overflow: hidden;
+        }
+        .fl{
+            float: left;
+        }
+        .fr{
+            float: right;
+        }
+        .float .fl,.float .fr{
+            width:300px;
+            background: #ccc;
+            height: 50px;
+        }
+        .float .middle{
+            background: peru;
+            height: 40px;
+            margin:0 320px;
+            border:palegreen;
+        }
+        /* 布局示例2 */
+        .table{
+            margin:40px 0;
+            background:darkseagreen;
+        }
+        .table .middle{
+            display: table-cell;
+            width:9999px;
+            height: 40px;
+            background: royalblue;
+        }
+        .table .fl,.table .fr{
+            width:300px;
+            background: #ccc;
+            height: 50px;
+        }
+        /* 布局3 flex */
+        .flex{
+            display: flex;
+            height: 66px;
+            margin:40px 0 ;
+            border:1px solid #333333;
+        }
+        .flex .lt,.flex .rt{
+            width:100px;
+            background:darkgray;
+        }
+        .flex .middle {
+            flex-grow:1;
+            background:cyan;
+        }
+        /* 布局4 grid */
+        .grid{
+            margin:40px 0;
+            height: 50px;
+            border:1px solid #1ed;
+            display:grid;
+            grid-template-columns: 100px auto 100px;
+        }
+        .grid .lt{
+            background:chartreuse;
+        }
+        .grid .rt{
+            background:cadetblue;
+        }
+        .grid .middle{
+            background:brown;
+        }
+        /* 
+            grid 的兼容写法
+            @supports (display:grid){
+                div{
+                    display:grid
+                    }
+            }
+            @supports not(display:grid){
+                div{
+                    display:block;
+                    }
+            }
+         */
+        /* 文字环绕 */
+        .text-around{
+            background: darkslategray;
+        }
+    </style>
+    <!-- js 检测flex是否被支持 -->
+    <script>
+        var div = document.createElement("div");
+        div.style.display = "flex";
+        if(div.style.display !== "flex" && div.style.display !== "-webkit-flex") document.getElementsByTagName('body')[0].className = "no-flex";
+    </script>
+</head>
+<body>
+    <div class="container1">
+        <img src="./images/gift.png" alt="">
+    </div>
+    <div class="container2">
+        <img src="./images/gift.png" alt="">
+
+    </div>
+    <div class="container3">
+        <img src="./images/gift.png" alt="">
+
+    </div>
+    <!-- 页面布局 -->
+    <div class="float">
+        <div class="fl"></div>
+        <div class="fr"></div>
+        <div class="middle"></div>
+
+    </div>
+    <!-- 示例2 -->
+    <div class="table clearfix">
+        <div class="fl"></div>
+        <div class="fr"></div>
+        <div class="middle"></div>
+    </div>
+    <!-- 示例3 -->
+    <div class="flex clearfix">
+        <div class="lt"></div>
+        <div class="middle"></div>
+        <div class="rt"></div>
+    </div>
+    <!-- 示例4 grid -->
+    <div class="grid">
+        <div class="lt"></div>
+        <div class="middle"></div>
+        <div class="rt"></div>
+    </div>
+    <!-- 文字环绕 -->
+    <div class="text-around clearfix">
+        <img class="fl" src="./images/gift.png" alt="">sdfsdfsdfsdflijlasjoigjwoegijwerjglsjlfjsldjglskjg
+        直接诶浮动式的深度开发建设看到积分十多块飞机上看到飞机上的风科技辣椒粉垃圾股啦法律上的纠纷律师的结果哦是根据我饿结束了国家设立登记设立多家分公司领导关键是哦的进攻苏联等国家连锁店结构类似的结构类似的感觉
+    </div>
+    <div class="img-test" style="line-height: 40px;font-size: 40px;background: bisque;">
+        <img src="./images/gift.png" alt="">查看图片下面的空白问题
+    </div>
+</body>
+</html>

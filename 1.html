@@ -71,33 +71,6 @@
         <input type="file" name="file">
     </form>
     <img id="test-pic" src="about:blank" alt="">
-    <script>
-        let db = window.openDatabase("test_db","v1.0","qiphon db test",2*1024*1024)
-        console.log(db)
-        //插入数据
-        let order = {
-            orderId : 1010,
-            format_city:"New York",
-            lat:"12423423",
-            lng:"-23",
-            price:12,
-            createTime:new Date().getTime()
-        }
-        db.transaction(tx=>{
-            console.log('create',tx)
-            tx.executeSql("create table if not exists order_data(order_id primary key,format_city,lat,lng,price,create_time)",[],null,
-            function(tx,err){
-                throw(`execute sql failed : ${err.code} ${err.message}`)
-            })
-        })
-        //插入数据
-        db.transaction(tx=>{
-            console.log(tx)
-            tx.executeSql(`insert into order_data values(${order.orderId},'${order.format_city}',${order.lat},${order.lng},${order.price},${order.createTime})`)
-            },(err)=>{
-            console.log("操作失败",err)
-        })
-    </script>
     <script src="./node_modules/exif-js/exif.js"></script>
     <script>
         "use strict"
@@ -198,6 +171,8 @@
             $container:form['file'],
             $img : document.getElementById('test-pic')
         })
+
+
     </script>
 </body>
 </html>

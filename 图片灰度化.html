@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片灰度化</title>
+    <style>
+    
+    </style>
+</head>
+<body>
+    <img src="./images/gift.png" alt="">
+    <canvas class="cvs"></canvas>
+    <script>
+        var img = new Image();
+        var imgWidth,
+            imgHeight;
+        var cvs = document.getElementsByClassName('cvs')[0]
+        var ctx = cvs.getContext('2d');
+        // console.log(ctx)
+        img.src = './images/gift.png'
+        img.onload = function(){
+            imgHeight = this.naturalHeight ;
+            imgWidth = this.naturalWidth ;
+            cvs.height = 2* imgHeight;
+            cvs.width = 2 * imgWidth;
+            ctx.drawImage(this,0,0,this.naturalWidth,this.naturalHeight)
+            var imgData = ctx.getImageData(0,0,imgWidth,imgHeight)
+            console.log(imgData)
+            //灰度计算，用的第二种
+            var data = imgData.data;
+            var len = data.length;
+            for(let i=0;i<len; i+=4){
+                let gray = 0.3 * data[i] + .59 * data[i+1] + .11 * data[i+2]
+                data[i]=data[i+1]=data[i+2] = gray
+            }
+            console.log(imgData)
+            ctx.putImageData(imgData,imgWidth,0,0,0,imgWidth,imgHeight)  // 将图片数据写进画布
+            ctx.putImageData(imgData,0,imgHeight,101,101,imgWidth/2,imgHeight/2)  // 将图片数据写进画布  //截取图片
+            ctx.putImageData(imgData,imgWidth-101,imgHeight-101,101,101,imgWidth/2,imgHeight/2)  // 将图片数据写进画布 //截取图片
+        }
+        
+    </script>
+</body>
+</html>
