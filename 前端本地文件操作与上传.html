@@ -10,9 +10,89 @@
     </style>
 </head>
 <body>
-    <form action="">
-        <input type="file">
+    <form action="" id="file-up">
+        <input type="file" name="file">
 
     </form>
+    <div id="edit" contenteditable="true"> 
+        在这里粘贴
+    </div>
 </body>
+<script>
+    var edit = document.getElementById("edit")
+    var form = document.forms.namedItem("file-up")
+
+
+    edit.onpaste = function(event){
+        console.log(event)
+        let file = event.clipboardData.files[0]
+        readImage(file)
+    }
+    // form["file"].onchange = function(){
+    //     console.log(`file name is ${this.value}`)
+    //     // console.log(this.form)
+    //     let formData = new FormData(this.form)
+    //     formData.append("fileName",this.value)
+    //     console.log(formData)
+    // }
+    form["file"].onchange = function(event){
+        // console.log(event)
+        console.log(`file name is ${this.value}`)  ///一个虚假的地址
+        readImage(this.files[0])
+    }
+    form["file"].ondrop = function(event){
+        console.log(event)
+        event.preventDefault();
+        event.cancelBubble = true;
+        let file = event.dataTransfer.files[0];
+        readImage(file)
+    }
+    function readImage(file){
+        let fileReader = new FileReader(file)
+        fileReader.readAsDataURL(file)
+        fileReader.onload = function(){
+            // console.log(file.type)
+            if(/^image\/[jpeg|png|gif]/.test(file.type)){
+                // 读取结果在fileReader.result里面
+                let img = new Image()
+                img.src = this.result;
+
+                console.log(this.result)  ///base64的结果
+                b642blob(this.result)
+                document.body.appendChild(img)
+            }
+        }
+    }
+
+
+    ///base64 => blob
+    function b642blob(b64,contentType,sliceSize){
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        let byteCaracters = window.atob(b64);
+        let byteArrays = [];
+        for(let offset = 0; offset<byteCaracters.length ; offset++){
+            let slice = byteCharacters.slice(offset , offset + sliceSize);
+
+            let byteNumbers = new Array(slice.length);
+
+            for(let i = 0; i< slice.length; i++){
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+            let byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray)
+        }
+
+        var blob = new Blob(byteArrays,{type:contentType})
+        console.log(blob)
+        return blob;
+    }
+
+    ///blob
+    var data = {hello:'blob'}
+    var blob = new Blob([JSON.stringify(data)],{type:'application/json'})
+    console.log(blob)   ///Blob(16) {size: 16, type: "application/json"}
+</script>
 </html>
