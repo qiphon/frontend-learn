@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        ;(function(){
+            let target = document.body;
+            console.dir(target)
+            let touchstartTime = 0;
+            function log(event){
+                if(event.type ==="touchstart") touchstartTime = Date.now();
+                console.log(event.type,Date.now()-touchstartTime)
+            }
+
+            target.onclick = log
+            target.ontouchstart = log
+            target.ontouchend = log
+            target.ontouchmove = log
+            target.onmouseover = log
+            target.onmousedown = log
+            target.onmouseup = log
+
+        })()
+
+
+        // tap 
+        let $ = function(selector){
+            let dom = null ;
+            if(typeof selector === "string"){
+                dom = document.querySelectorAll(selector)
+            }else if (selector instanceof HTMLElement){
+                document = selector;
+            }
+            return new $Element(dom)
+        }
+
+        class $Element{
+            constructor(_doms){
+                let doms = _doms.constructor === Array ||
+                           _doms.constructor === NodeList ? _doms : [_doms]
+                this.doms = doms;
+                this.init()
+                for(let i =0; i<doms.length;i++){
+                    this[i] = doms[i]
+                    if(!doms[i].listeners){
+                        doms[i].listeners = {}
+                    }
+                }
+            }
+            init(){
+                for(let i=0;i<doms.length;i++){
+                    if(!this.doms[i].listeners){
+                        this.initTapEvent(this.doms[i])
+                    }
+                }
+            }
+            on(enentType,cb){
+                for(let i=0;i<doms.length;i++){
+                    let dom = this.doms[i]
+                    if(!doms.listeners[eventType]){
+                        doms.listeners[eventType] = []
+                    }
+                    dom.listeners[eventType].push(cb)
+                }
+            }
+            trigger(eventType,event){
+                for(let i=0;i<doms.length;i++){
+                    $Element.dispatchEvent(this.doms[i],eventType,event)
+                }
+            }
+            static dispatchEvent(dom,eventType,event){
+                let listeners = dom.listeners[eventType];
+                if(listeners){
+                    for(let i =0;i<listeners.length;i++){
+                        listeners[i].call(dom,event)
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>摇一摇实现</title>
+</head>
+<style>
+
+    #gravity{
+        height: 100vh;
+    }
+</style>
+<body>
+    <div id="gravity"></div>
+    <script>
+        const EMPTY_VALUE = 100;
+        const THREAD_HOLD = 13.8;
+
+        let minX = EMPTY_VALUE;
+        let minY = EMPTY_VALUE;
+        
+        window.ondevicemotion = function(event){
+            let gravity = event.accelerationIncludingGravity;
+            console.dir(gravity)
+            let x = gravity.x;
+            let y = gravity.y;
+            if(x < minX)minX = x;
+            if(y < minY)minY = x;
+            if(Math.abs(x - minX)> THREAD_HOLD && Math.abs(y-minY)>THREAD_HOLD){
+                console.log("shake")
+                let event = new CustomEvent("shake")
+                window.dispatchEvent(event)
+                minX = minY = EMPTY_VALUE;
+            }
+        }
+        window.addEventListener("shake",function(){
+            let div = document.createElement("div")
+            div.innerHTML = "window shake callback was called"
+            document.getElementById('gravity').appendChild(div)
+        })
+    </script>
+</body>
+</html>
