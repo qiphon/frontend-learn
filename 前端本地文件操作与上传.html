@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="" id="file-up">
-        <input type="file" name="file">
+        <input type="file" name="file" multiple>
 
     </form>
     <div id="edit" contenteditable="true"> 
@@ -24,7 +24,7 @@
 
 
     edit.onpaste = function(event){
-        console.log(event)
+        // console.log(event)
         let file = event.clipboardData.files[0]
         readImage(file)
     }
@@ -36,7 +36,7 @@
     //     console.log(formData)
     // }
     form["file"].onchange = function(event){
-        // console.log(event)
+        console.log(event)
         console.log(`file name is ${this.value}`)  ///一个虚假的地址
         readImage(this.files[0])
     }
@@ -44,6 +44,8 @@
         console.log(event)
         event.preventDefault();
         event.cancelBubble = true;
+        console.log(event.dataTransfer.files.length)   //可以打印上传文件的个数
+        
         let file = event.dataTransfer.files[0];
         readImage(file)
     }
@@ -52,13 +54,15 @@
         fileReader.readAsDataURL(file)
         fileReader.onload = function(){
             // console.log(file.type)
-            if(/^image\/[jpeg|png|gif]/.test(file.type)){
+            if(/^image\/(jpeg|png|gif)/.test(file.type)){
                 // 读取结果在fileReader.result里面
                 let img = new Image()
                 img.src = this.result;
 
-                console.log(this.result)  ///base64的结果
-                b642blob(this.result)
+                // console.log(this.result)  ///base64的结果
+                let base64 = this.result.replace(/^data:image\/[^;]+;base64,/,'')
+                // console.log(base64)
+                b642blob(base64)
                 document.body.appendChild(img)
             }
         }
@@ -66,13 +70,13 @@
 
 
     ///base64 => blob
-    function b642blob(b64,contentType,sliceSize){
+    function b642blob(b64,contentType,sliceSize){ 
         contentType = contentType || '';
         sliceSize = sliceSize || 512;
 
-        let byteCaracters = window.atob(b64);
+        let byteCharacters = window.atob(b64);  /// 把base64还原   btoa 是把内容转化为base64
         let byteArrays = [];
-        for(let offset = 0; offset<byteCaracters.length ; offset++){
+        for(let offset = 0; offset<byteCharacters.length ; offset++){
             let slice = byteCharacters.slice(offset , offset + sliceSize);
 
             let byteNumbers = new Array(slice.length);
