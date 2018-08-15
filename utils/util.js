@@ -13,7 +13,10 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-
+const reversestr = str =>{
+  return str.split("").reverse().join('')
+}
+ 
 module.exports = {
   formatTime: formatTime
 }
