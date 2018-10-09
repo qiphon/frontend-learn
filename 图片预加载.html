@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片预加载</title>
+</head>
+<body>
+    <script>    
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = callback;
+
+        xhr.onprogress = progressCallback;
+
+        xhr.open('GET','https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2168427908,4072089613&fm=200&gp=0.jpg',true);
+
+        xhr.send();
+
+
+        function callback(){
+            if(xhr.readyState == 4 && (xhr.status ==200 || xhr.status == 304) ){
+                var responseText = xhr.responseText;
+                // console.log(responseText)
+            }else{
+                console.log("Request was unsuccessful: " + xhr.status)
+            }
+        }
+
+        function progressCallback(event){
+            console.log(event)
+            if(event.lengthComputable){
+                console.log("Received " + event.loaded + ' of ' + event.total + ' bytes')
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
