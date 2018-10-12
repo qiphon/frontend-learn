@@ -13,5 +13,17 @@
 </head>
 <body>
     <a href="xiaosi://caizhidao:8888">点我跳到财知道</a>
+
+    <script>
+        // 方法二
+        var ifr = document.createElement("iframe"); 
+        ifr.src = 'xiaosi://caizhidao:8888';
+        ifr.style.display = 'none';
+        document.body.appendChild(ifr);
+        window.setTimeout(function(){
+            document.body.removeChild(ifr);
+            window.location.href = '/share/download'
+        },2000);
+    </script>
 </body>
 </html>

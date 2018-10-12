@@ -22,18 +22,19 @@
         }
 
 
-        c = s`sdfsd${a} sh sldkfjskd ${b}`
+        c = s`33${a}s${b}`
 
 
 
 
         /// object.assign  把一个值给一个对象
-        var obj = {a},obj2={}
-        Object.assign(
-            obj2,
-            obj
+        var obj = {a},obj2={b}
+        console.log('obj',obj)  
+        var c = Object.assign(
+            obj,obj2
         )
-        console.log(obj2)
+        console.log('obj2',obj2)
+        console.log('c',c)
 
 
 

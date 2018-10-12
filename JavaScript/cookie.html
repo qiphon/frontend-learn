@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cookie/localStorage/sessionStorage</title>
+</head>
+<body>
+    <script>
+
+        // cookie
+        document.cookie = "name=qiphon"
+        document.cookie = "gender=male"
+    
+        // console.log(document.cookie)
+
+        // localStorage(sessionStorage 的api与localStorage相同)
+
+        // if(window.localStorage){
+        //     localStorage.setItem('name','qiphon')
+        //     localStorage.setItem('age',25)
+        //     console.log(localStorage.getItem('name'))
+        //     console.log(localStorage.getItem('age'))
+        // }
+
+        // indexDB
+        function openDB(name,cb){
+            var db = window.indexedDB.open(name)
+            var db1;
+            db.onerror = function(event){//error事件表示打开数据库失败。
+                console.log(event)
+            }
+
+            db.onsuccess = function(event){//success事件表示成功打开数据库。
+                // console.log(event)
+                db1 = event.target.result
+                cb(db1)
+            }
+
+            db.onupgradeneeded = function(event){  // 如果指定的版本号，大于数据库的实际版本号，就会发生数据库升级事件upgradeneeded。
+                // 监听版本变化 (只有版本变化的时候才能createObjectStore)
+                console.log(event)
+                let db = event.target.result;
+                if(!db.objectStoreNames.contains('persion')){// 判断表格是否存在
+                    // 创建对象仓库 (keyPath 主键)
+                    var store = db.createObjectStore('person', { keyPath: 'id' });
+                    // 如果没有合适的主键，可以选择自动生成主键
+                    // var objectStore = db.createObjectStore('person',{ autoIncrement:true});
+                    
+                    // 三个参数分别为索引名称、索引所在的属性、配置对象（说明该属性是否包含重复的值）。
+                    var titleIndex = store.createIndex('by_title','title',{
+                        unique:true
+                    })
+                    store.put({
+                        title:'the world',
+                        author:'Mr Jhon',
+                        id:0
+                    })
+                    store.put({
+                        title:'the world2',
+                        author:'Mr Jhon',
+                        id:1
+                    })
+                }
+            }
+        }
+            
+
+
+        openDB('qiphon',function(db){
+            setTimeout(function(){
+                dbData(db)
+            },2000)
+        })
+
+        // 读取数据
+        function dbData(db){
+            console.log(db)
+            // 增删数据记录，需要通过事务完成
+            var transaction = db.transaction('person','readwrite')
+            var store = transaction.objectStore('person')
+            // 获取数据
+            // var req = store.get(1)
+            // req.onsuccess = function(event){
+            //     console.log(event.target.result)
+            // }
+
+            // 添加数据
+            // store.add({
+            //     title:'new world',
+            //     id:3
+            // })
+
+            // 删除数据
+            // store.delete(1)
+            
+            // 更新数据
+            // store.get(0).onsuccess = function(event){
+            //     books = event.target.result;
+            //     console.log(books)
+            //     books.author = 'James'
+            //     store.put(books).onsuccess = function(event){
+            //         console.log('update',event)
+            //     }
+            // }
+
+            // 遍历所有数据
+            // store.openCursor().onsuccess = function(event){
+            //     var cursor = event.target.result;
+            //     if(cursor){
+            //         console.log(cursor)
+            //         cursor.continue()
+            //     }else{
+            //         console.log('not anything yet')
+            //     }
+            // }
+
+            // 通过索引查找
+            var index = store.index('by_title')
+            var req = index.get('the world')
+            req.onsuccess = function(event){
+                var result = event.target.result;
+                console.log(result)
+            }
+        }
+        
+
+
+    </script>
+</body>
+</html>
