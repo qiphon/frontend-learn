@@ -2,8 +2,9 @@
 if(navigator.serviceWorker){
     navigator.serviceWorker.register('./sw.js',{scope : './'})
         .then(function(reg){
-            // console.log('reg',reg)
-            
+            // console.log('reg',reg) // 返回注册信息
+            window.swReg = reg;
+            // console.log('reg',swReg.scope)
         })
         .catch((err)=>{
             console.log(err)
