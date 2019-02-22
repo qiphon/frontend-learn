@@ -1,0 +1,11 @@
+{
+  "name": "learn-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:qiphon/frontend-learn.git",
+  "author": "qiphon <767521025@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}
