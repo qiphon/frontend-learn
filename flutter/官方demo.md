@@ -114,4 +114,67 @@ Stateful widgets 持有的状态可能在widget生命周期中发生变化. 实�
 2. 一个 State类。 StatefulWidget类本身是不变的，但是 State类在widget生命周期中始终存在.
 
 
->1. 添加有状态的 RandomWords widget 到 main.dart。 它也可以在MyApp之外的文件的任何位置使用，但是本示例将它放到了文件的底部。RandomWords widget除了创建State类之外几乎没有其他任何东西
+> 1. 添加有状态的 RandomWords widget 到 main.dart。 它也可以在MyApp之外的文件的任何位置使用，但是本示例将它放到了文件的底部。RandomWords widget除了创建State类之外几乎没有其他任何东西
+
+```
+class RandomWords extends StatefulWidget {
+  @override
+  createState() => new RandomWordsState();
+}
+
+```
+> 2.  添加 RandomWordsState 类.该应用程序的大部分代码都在该类中， 该类持有RandomWords widget的状态。这个类将保存随着用户滚动而无限增长的生成的单词对， 以及喜欢的单词对，用户通过重复点击心形 ❤️ 图标来将它们从列表中添加或删除。
+你会一步一步地建立这个类。首先，通过添加高亮显示的代码创建一个最小类
+在添加状态类后，IDE会提示该类缺少build方法。接下来，您将添加一个基本的build方法，该方法通过将生成单词对的代码从MyApp移动到RandomWordsState来生成单词对。
+将build方法添加到RandomWordState中，如下面高亮代码所示
+
+```
+class RandomWordsState extends State<RandomWords> {
+  @override
+  Widget build(BuildContext context) {
+    final wordPair = new WordPair.random();
+    return new Text(wordPair.asPascalCase);
+  }
+}
+
+```
+
+> 3. 通过下面高亮显示的代码，将生成单词对代的码从MyApp移动到RandomWordsState中
+
+```
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // final wordPair = new WordPair.random();  // 删除此行
+
+    return new MaterialApp(
+      title: 'Welcome to Flutter',
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Welcome to Flutter'),
+        ),
+        body: new Center(
+          //child: new Text(wordPair.asPascalCase),
+          child: new RandomWords(),
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+应用程序应该像之前一样运行，每次热重载或保存应用程序时都会显示一个单词对.
+
+## 创建一个无限滚动ListView
+
+
+
+
+
+
+
+
+
+
