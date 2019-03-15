@@ -1,0 +1,373 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>基于jQuery+JSON的省市联动效果</title>
+
+    <style type="text/css">
+        /* demo */
+        .demo {
+            width: 80%;
+            margin: 20px auto
+        }
+
+        .demo h3 {
+            height: 32px;
+            line-height: 32px
+        }
+
+        .demo p {
+            line-height: 24px
+        }
+
+        pre {
+            margin-top: 10px;
+            padding: 6px;
+            background: #f7f7f7
+        }
+    </style>
+    <script type="text/javascript" src="../../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./jquery.cityselect.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            //demo01
+            $("#city_1").citySelect({
+                nodata: "none",
+                required: false
+            });
+
+            //demo02
+            $("#city_2").citySelect({
+                prov: "北京",
+                nodata: "none"
+            });
+
+            //demo03
+            $("#city_3").citySelect({
+                prov: "湖南",
+                city: "长沙"
+            });
+
+            //demo04
+            $("#city_4").citySelect({
+                prov: "湖南",
+                city: "长沙",
+                dist: "岳麓区",
+                nodata: "none"
+            });
+
+            //demo05
+            $("#city_5").citySelect({
+                url: {
+                    "citylist": [
+                        { "p": "前端技术", "c": [{ "n": "HTML" }, { "n": "CSS", "a": [{ "s": "CSS2.0" }, { "s": "CSS3.0" }] }, { "n": "JAVASCIPT" }] },
+                        { "p": "编程语言", "c": [{ "n": "C" }, { "n": "C++" }, { "n": "Objective-C" }, { "n": "PHP" }, { "n": "JAVA" }] },
+                        { "p": "数据库", "c": [{ "n": "Mysql" }, { "n": "SqlServer" }, { "n": "Oracle" }, { "n": "DB2" }] },
+                    ]
+                },
+                prov: "",
+                city: "",
+                dist: "",
+                nodata: "none"
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="demo">
+        <h3>直接调用</h3>
+
+        <p>二级联动，默认选项为：请选择</p>
+        <div id="city_1">
+            <select class="prov">
+                <option value="">请选择</option>
+                <option value="北京">北京</option>
+                <option value="天津">天津</option>
+                <option value="河北">河北</option>
+                <option value="山西">山西</option>
+                <option value="内蒙古">内蒙古</option>
+                <option value="辽宁">辽宁</option>
+                <option value="吉林">吉林</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="上海">上海</option>
+                <option value="江苏">江苏</option>
+                <option value="浙江">浙江</option>
+                <option value="安徽">安徽</option>
+                <option value="福建">福建</option>
+                <option value="江西">江西</option>
+                <option value="山东">山东</option>
+                <option value="河南">河南</option>
+                <option value="湖北">湖北</option>
+                <option value="湖南">湖南</option>
+                <option value="广东">广东</option>
+                <option value="广西">广西</option>
+                <option value="海南">海南</option>
+                <option value="重庆">重庆</option>
+                <option value="四川">四川</option>
+                <option value="贵州">贵州</option>
+                <option value="云南">云南</option>
+                <option value="西藏">西藏</option>
+                <option value="陕西">陕西</option>
+                <option value="甘肃">甘肃</option>
+                <option value="青海">青海</option>
+                <option value="宁夏">宁夏</option>
+                <option value="新疆">新疆</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+                <option value="台湾">台湾</option>
+                <option value="国外">国外</option>
+            </select>
+            <select class="city" disabled="disabled"></select>
+        </div>
+
+        <p>三级联动，默认省份：北京，隐藏无数据的子级select</p>
+        <div id="city_2">
+            <select class="prov">
+                <option value="北京">北京</option>
+                <option value="天津">天津</option>
+                <option value="河北">河北</option>
+                <option value="山西">山西</option>
+                <option value="内蒙古">内蒙古</option>
+                <option value="辽宁">辽宁</option>
+                <option value="吉林">吉林</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="上海">上海</option>
+                <option value="江苏">江苏</option>
+                <option value="浙江">浙江</option>
+                <option value="安徽">安徽</option>
+                <option value="福建">福建</option>
+                <option value="江西">江西</option>
+                <option value="山东">山东</option>
+                <option value="河南">河南</option>
+                <option value="湖北">湖北</option>
+                <option value="湖南">湖南</option>
+                <option value="广东">广东</option>
+                <option value="广西">广西</option>
+                <option value="海南">海南</option>
+                <option value="重庆">重庆</option>
+                <option value="四川">四川</option>
+                <option value="贵州">贵州</option>
+                <option value="云南">云南</option>
+                <option value="西藏">西藏</option>
+                <option value="陕西">陕西</option>
+                <option value="甘肃">甘肃</option>
+                <option value="青海">青海</option>
+                <option value="宁夏">宁夏</option>
+                <option value="新疆">新疆</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+                <option value="台湾">台湾</option>
+                <option value="国外">国外</option>
+            </select>
+            <select class="city">
+                <option value="东城区">东城区</option>
+                <option value="西城区">西城区</option>
+                <option value="崇文区">崇文区</option>
+                <option value="宣武区">宣武区</option>
+                <option value="朝阳区">朝阳区</option>
+                <option value="丰台区">丰台区</option>
+                <option value="石景山区">石景山区</option>
+                <option value="海淀区">海淀区</option>
+                <option value="门头沟区">门头沟区</option>
+                <option value="房山区">房山区</option>
+                <option value="通州区">通州区</option>
+                <option value="顺义区">顺义区</option>
+                <option value="昌平区">昌平区</option>
+                <option value="大兴区">大兴区</option>
+                <option value="平谷区">平谷区</option>
+                <option value="怀柔区">怀柔区</option>
+                <option value="密云县">密云县</option>
+                <option value="延庆县">延庆县</option>
+            </select>
+            <select class="dist" disabled="disabled" style="display: none;"></select>
+        </div>
+
+        <pre>$("#city_1").citySelect({nodata:"none",required:false}); 
+    $("#city_2").citySelect({prov:"北京",nodata:"none"});
+    </pre>
+
+    </div>
+
+    <div class="demo">
+        <h3>设置省份、城市、地区（县）的默认值</h3>
+
+        <p>二级联动</p>
+        <div id="city_3">
+            <select class="prov">
+                <option value="北京">北京</option>
+                <option value="天津">天津</option>
+                <option value="河北">河北</option>
+                <option value="山西">山西</option>
+                <option value="内蒙古">内蒙古</option>
+                <option value="辽宁">辽宁</option>
+                <option value="吉林">吉林</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="上海">上海</option>
+                <option value="江苏">江苏</option>
+                <option value="浙江">浙江</option>
+                <option value="安徽">安徽</option>
+                <option value="福建">福建</option>
+                <option value="江西">江西</option>
+                <option value="山东">山东</option>
+                <option value="河南">河南</option>
+                <option value="湖北">湖北</option>
+                <option value="湖南">湖南</option>
+                <option value="广东">广东</option>
+                <option value="广西">广西</option>
+                <option value="海南">海南</option>
+                <option value="重庆">重庆</option>
+                <option value="四川">四川</option>
+                <option value="贵州">贵州</option>
+                <option value="云南">云南</option>
+                <option value="西藏">西藏</option>
+                <option value="陕西">陕西</option>
+                <option value="甘肃">甘肃</option>
+                <option value="青海">青海</option>
+                <option value="宁夏">宁夏</option>
+                <option value="新疆">新疆</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+                <option value="台湾">台湾</option>
+                <option value="国外">国外</option>
+            </select>
+            <select class="city">
+                <option value="昆明">昆明</option>
+                <option value="曲靖">曲靖</option>
+                <option value="玉溪">玉溪</option>
+                <option value="保山">保山</option>
+                <option value="昭通">昭通</option>
+                <option value="丽江">丽江</option>
+                <option value="普洱">普洱</option>
+                <option value="临沧">临沧</option>
+                <option value="楚雄">楚雄</option>
+                <option value="红河">红河</option>
+                <option value="文山">文山</option>
+                <option value="西双版纳">西双版纳</option>
+                <option value="大理">大理</option>
+                <option value="德宏">德宏</option>
+                <option value="怒江傈">怒江傈</option>
+                <option value="迪庆">迪庆</option>
+            </select>
+        </div>
+
+        <p>三级联动</p>
+        <div id="city_4">
+            <select class="prov">
+                <option value="北京">北京</option>
+                <option value="天津">天津</option>
+                <option value="河北">河北</option>
+                <option value="山西">山西</option>
+                <option value="内蒙古">内蒙古</option>
+                <option value="辽宁">辽宁</option>
+                <option value="吉林">吉林</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="上海">上海</option>
+                <option value="江苏">江苏</option>
+                <option value="浙江">浙江</option>
+                <option value="安徽">安徽</option>
+                <option value="福建">福建</option>
+                <option value="江西">江西</option>
+                <option value="山东">山东</option>
+                <option value="河南">河南</option>
+                <option value="湖北">湖北</option>
+                <option value="湖南">湖南</option>
+                <option value="广东">广东</option>
+                <option value="广西">广西</option>
+                <option value="海南">海南</option>
+                <option value="重庆">重庆</option>
+                <option value="四川">四川</option>
+                <option value="贵州">贵州</option>
+                <option value="云南">云南</option>
+                <option value="西藏">西藏</option>
+                <option value="陕西">陕西</option>
+                <option value="甘肃">甘肃</option>
+                <option value="青海">青海</option>
+                <option value="宁夏">宁夏</option>
+                <option value="新疆">新疆</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+                <option value="台湾">台湾</option>
+                <option value="国外">国外</option>
+            </select>
+            <select class="city">
+                <option value="长沙">长沙</option>
+                <option value="株洲">株洲</option>
+                <option value="湘潭">湘潭</option>
+                <option value="衡阳">衡阳</option>
+                <option value="邵阳">邵阳</option>
+                <option value="岳阳">岳阳</option>
+                <option value="常德">常德</option>
+                <option value="张家界">张家界</option>
+                <option value="益阳">益阳</option>
+                <option value="郴州">郴州</option>
+                <option value="永州">永州</option>
+                <option value="怀化">怀化</option>
+                <option value="娄底">娄底</option>
+                <option value="湘西">湘西</option>
+            </select>
+            <select class="dist">
+                <option value="芙蓉区">芙蓉区</option>
+                <option value="天心区">天心区</option>
+                <option value="岳麓区">岳麓区</option>
+                <option value="开福区">开福区</option>
+                <option value="雨花区">雨花区</option>
+                <option value="长沙县">长沙县</option>
+                <option value="望城县">望城县</option>
+                <option value="宁乡县">宁乡县</option>
+                <option value="浏阳市">浏阳市</option>
+            </select>
+        </div>
+
+        <pre>$("#city_3").citySelect({prov:"湖南", city:"长沙"});
+    $("#city_4").citySelect({prov:"湖南", city:"长沙", dist:"岳麓区"}); 
+    </pre>
+
+    </div>
+
+    <div class="demo">
+        <h3>自定义下拉选项</h3>
+        <div id="city_5">
+            <select class="prov">
+                <option value="前端技术">前端技术</option>
+                <option value="编程语言">编程语言</option>
+                <option value="数据库">数据库</option>
+            </select>
+            <select class="city">
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+                <option value="JAVASCIPT">JAVASCIPT</option>
+            </select>
+            <select class="dist" disabled="disabled" style="display: none;"></select>
+        </div>
+
+        <pre>$("#city_5").citySelect({
+        url:{"citylist":[
+            {"p":"前端技术","c":[{"n":"HTML"},{"n":"CSS","a":[{"s":"CSS2.0"},{"s":"CSS3.0"}]},{"n":"JAVASCIPT"}]},
+            {"p":"编程语言","c":[{"n":"C"},{"n":"C++"},{"n":"Objective-C"},{"n":"PHP"},{"n":"JAVA"}]},
+            {"p":"数据库","c":[{"n":"Mysql"},{"n":"SqlServer"},{"n":"Oracle"},{"n":"DB2"}]},
+            ]},
+        prov:"",
+        city:"",
+        dist:"",
+        nodata:"none"
+    });
+    </pre>
+
+    </div>
+
+
+<script>
+    $.ajax({
+        url:"./city.min.json",
+        success(res){
+            console.log((res))
+        }
+    })
+</script>
+</body>
+
+</html>

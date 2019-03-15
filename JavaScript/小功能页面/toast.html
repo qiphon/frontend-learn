@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>toast</title>
+    <style>
+        #toast {
+            position: fixed;
+            top:45%;
+            top:45vh;
+            left: 0;
+            height: 0;
+            width:100%;
+            text-align: center;
+            box-sizing: border-box;
+            display: none;
+        }
+        #toast span {
+            margin:0;
+            padding:10px 20px;
+            background: rgba(0,0,0,.7);
+            display: inline-block;
+            max-width: 80%;
+            color:#fff;
+            box-sizing: border-box;
+            transform: translate(0,-50%);
+        }
+    </style>    
+</head>
+<body>
+    <div id="toast">
+        <span>圣诞快乐房价是领导看附件是考虑对方</span>
+    </div>
+    <script>
+        "use strict";
+        // toast 提示
+        function Toast(msg, el, t) {
+            var ele = document.querySelector(el);
+            var Ospan = ele.querySelector('span')
+            // console.log(ele,Ospan)
+            if (typeof msg === 'string') {
+                Ospan.innerHTML=msg;
+                ele.style.display = 'block';
+                setTimeout(()=>{
+                    ele.style.display = 'none';
+                }, t ? t : 2000);
+            } else {
+                console.warn("param msg must be a String !");
+            }
+        }
+        Toast("testddd数量大幅减少dd","#toast")
+    </script>
+</body>
+
+</html>
