@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复制功能实现</title>
+    <script src="./clipboard.min.js"></script>
+</head>
+
+<body>
+    <div class="btn" data-clipboard-text="1111111111" style="cursor:pointer;">sdfsdfsdfsdf</div>
+    <script>
+        var clipboard = new ClipboardJS('.btn');
+        clipboard.on("success", function (ev) {
+            console.log("成功")
+        }).on("error", function (ev) {
+            console.log("失败")
+        })
+    </script>
+</body>
+
+</html>
