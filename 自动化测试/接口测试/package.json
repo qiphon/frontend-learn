@@ -1,0 +1,17 @@
+{
+  "name": "serviceTest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./app/index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "mocha": "^6.0.2",
+    "mochawesome": "^3.1.1",
+    "supertest": "^4.0.2"
+  }
+}
