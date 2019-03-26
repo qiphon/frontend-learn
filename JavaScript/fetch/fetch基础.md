@@ -113,3 +113,73 @@ fetch(myRequest).then(function(response) {
 
 
 ```
+
+# fetch 在项目中的使用
+
+```
+export const $ = {
+    get(url, params, headers) {
+        let s = [];
+        if(params){
+            for(const v in params){
+                // console.log(v,1212)
+                s.push(`${v}=${params[v]}`);
+            }
+        }
+        return fetch(url+ `?${s.join('&')}`, {
+            // body: JSON.stringify(params), // 必须匹配 'Content-Type' header  // 上传JSON数据
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, same-origin, *omit
+            headers: headers ? headers : {
+                "Content-Type":'application/x-www-form-urlencoded'
+            },
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // *client, no-referrer
+        })
+            .then(r => {
+                console.log(r, '==========')
+                // return r.json();
+                return r.text();
+            }) // parses response to JSON
+            .then(res=>{
+                console.log(res,1212)
+                return res;
+            })
+    },
+    post(url, params, headers) {
+        return fetch(url, {
+            body: JSON.stringify(params), // 必须匹配 'Content-Type' header  // 上传JSON数据
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'include', // include, same-origin, *omit
+            // 发送带凭据的请求
+            // 为了让浏览器发送包含凭据的请求（即使是跨域源），要将credentials: 'include'添加到传递给 fetch()方法的init对象
+            // 如果你只想在请求URL与调用脚本位于同一起源处时发送凭据，请添加credentials: 'same-origin'。
+            // 要改为确保浏览器不在请求中包含凭据，请使用credentials: 'omit'。
+            headers: headers ? headers : ( params instanceof FormData ) ? {} : {
+                'content-type': 'application/json'
+            },
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // *client, no-referrer
+        })
+            .then(r => {
+                console.log(r, '==========')
+                return r.text();
+                // 支持的方法
+                // arrayBuffer() : 返回解决一个 ArrayBuffer 表示的请求主体的 promise
+                // blob() : 返回解决一个 Blob 表示的请求主体的 promise
+                // formData() : 返回解决一个 FormData 表示的请求主体的 promise
+                // json() : 返回解决一个 JSON 表示的请求主体的 promise
+                // text() : 返回解决一个 USVString(文本)表示的请求主体的 promise
+            }) // parses response to JSON
+            .then(res=>{
+                console.log(res,12312)
+                return res;
+            })
+    },
+}
+
+```
