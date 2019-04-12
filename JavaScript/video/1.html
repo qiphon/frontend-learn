@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>视频播放速度</title>
+    <style>
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <video controls src="http://dpv.videocc.net/e785b2c81c/5/e785b2c81c9e018296671a1287e99615_2.mp4?pid=1554793964424X1351725"></video>
+    <button onclick="setRate(5)">设置</button>
+    <button onclick="getRate(5)">获取</button>
+    <script>
+        var v = document.querySelector('video')
+        console.log(v.playbackRate)
+        function setRate(val){
+            v.playbackRate = val
+        }
+        function getRate(val){
+            alert(v.playbackRate)
+        }
+        v.onclick = function(){
+            alert(v.playbackRate)
+        }
+    </script>
+</body>
+</html>
