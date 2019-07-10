@@ -1,0 +1,41 @@
+{
+  "name": "react-hook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "client:dev": "scripty",
+    "client:server": "scripty",
+    "client:prod": "scripty"
+  },
+  "keywords": [],
+  "author": "qiphon",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "autoprefixer": "^9.6.1",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^3.0.0",
+    "cssnano": "^4.1.10",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "sass-loader": "^7.1.0",
+    "scripty": "^1.9.1",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1",
+    "yargs-parser": "^13.1.1"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

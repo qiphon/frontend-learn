@@ -1,0 +1,14 @@
+$main-color: blue;
+:root {
+    --main: yellowgreen;
+}
+h2 {
+    color: $main-color;
+    display: flex;
+    small{
+        color: var(--main);
+    }
+}
+::placeholder{
+    color: red;
+}
