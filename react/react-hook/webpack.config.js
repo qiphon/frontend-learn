@@ -14,7 +14,7 @@ const isDev = process.env.NODE_ENV === 'development' ? true : false
 const defaultCssLoader = (opts, preProcessor) => {
     l = [
         isDev && { loader: 'style-loader', options: { sourceMap: true } }, // creates style nodes from JS strings
-        { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true , ...opts} }, // translates CSS into CommonJS
+        { loader: 'css-loader', options: { importLoaders: 2, sourceMap: true, ...opts } }, // translates CSS into CommonJS
         {
             loader: 'postcss-loader',
             options: {
@@ -68,14 +68,18 @@ const webpackConfig = {
                 loader: 'awesome-typescript-loader'
             },
             {
-                test: /\.less/,
-                use: defaultCssLoader({}, 'less-loader' ),
-                // { loader: 'less-loader' } // compiles Less to CSS
-            },
-            {
-                test: /\.scss/,
-                use: defaultCssLoader({}, 'sass-loader' ),
-                // { loader: 'sass-loader' } // compiles scss to CSS
+                oneOf: [
+                    {
+                        test: /\.less/,
+                        use: defaultCssLoader({}, 'less-loader'),
+                        // { loader: 'less-loader' } // compiles Less to CSS
+                    },
+                    {
+                        test: /\.scss/,
+                        use: defaultCssLoader({}, 'sass-loader'),
+                        // { loader: 'sass-loader' } // compiles scss to CSS
+                    }
+                ]
             }
         ]
     },
