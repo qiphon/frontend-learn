@@ -86,16 +86,16 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./src/web/components/home/home.scss":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??postcss!./node_modules/sass-loader/lib/loader.js??ref--6-3!./src/web/components/home/home.scss ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js?!./src/web/components/home/home.module.scss":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-1-1!./node_modules/sass-loader/lib/loader.js??ref--5-oneOf-1-2!./src/web/components/home/home.module.scss ***!
+  \*********************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
 // Module
-exports.push([module.i, ":root {\n  --main: yellowgreen; }\n\nh2 {\n  color: blue;\n  display: flex; }\n  h2 small {\n    color: var(--main); }\n\n::placeholder {\n  color: red; }\n", "",{"version":3,"sources":["home.scss"],"names":[],"mappings":"AAAA;EACE,mBAAmB,EAAE;;AAEvB;EACE,WAAW;EACX,aAAa,EAAE;EACf;IACE,kBAAkB,EAAE;;AAExB;EACE,UAAU,EAAE","file":"home.scss","sourcesContent":[":root {\n  --main: yellowgreen; }\n\nh2 {\n  color: blue;\n  display: flex; }\n  h2 small {\n    color: var(--main); }\n\n::placeholder {\n  color: red; }\n"]}]);
+exports.push([module.i, ":root {\n  --main: yellowgreen; }\n\n.h2 {\n  color: blue;\n  display: flex; }\n  .h2 small {\n    color: var(--main); }\n\n::placeholder {\n  color: red; }\n", "",{"version":3,"sources":["home.module.scss"],"names":[],"mappings":"AAAA;EACE,mBAAmB,EAAE;;AAEvB;EACE,WAAW;EACX,aAAa,EAAE;EACf;IACE,kBAAkB,EAAE;;AAExB;EACE,UAAU,EAAE","file":"home.module.scss","sourcesContent":[":root {\n  --main: yellowgreen; }\n\n.h2 {\n  color: blue;\n  display: flex; }\n  .h2 small {\n    color: var(--main); }\n\n::placeholder {\n  color: red; }\n"]}]);
 
 
 /***/ }),
@@ -25427,15 +25427,15 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./src/web/components/home/home.scss":
-/*!*******************************************!*\
-  !*** ./src/web/components/home/home.scss ***!
-  \*******************************************/
+/***/ "./src/web/components/home/home.module.scss":
+/*!**************************************************!*\
+  !*** ./src/web/components/home/home.module.scss ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--6-1!../../../../node_modules/postcss-loader/src??postcss!../../../../node_modules/sass-loader/lib/loader.js??ref--6-3!./home.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./src/web/components/home/home.scss");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-1-1!../../../../node_modules/sass-loader/lib/loader.js??ref--5-oneOf-1-2!./home.module.scss */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js?!./src/web/components/home/home.module.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -25470,13 +25470,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 // import './home.module.less'
 // import st from './home.module.less'
-__webpack_require__(/*! ./home.scss */ "./src/web/components/home/home.scss");
+// import './home.scss'
+// import st from './home.module.scss'
+__webpack_require__(/*! ./home.module.scss */ "./src/web/components/home/home.module.scss");
+var useState = React.useState;
 // console.log(st)
-var Home = function () { return (React.createElement(React.Fragment, null,
-    React.createElement("h2", null,
-        "\u6211\u662Fbody",
-        React.createElement("small", null, "this is small")),
-    React.createElement("input", { type: "text", placeholder: "placeholder" }))); };
+var Home = function () {
+    // 声明一个叫 “count” 的 state 变量。
+    var _a = useState(1), count = _a[0], setCount = _a[1];
+    var changeInput = function (ev) {
+        console.log(ev, 'input');
+        setCount(ev);
+    };
+    return (React.createElement(React.Fragment, null,
+        React.createElement("h2", { className: "h2" },
+            "\u6211\u662Fbody",
+            React.createElement("small", null,
+                "this is small ",
+                count)),
+        React.createElement("input", { type: "text", placeholder: "placeholder", onInput: function (ev) { return changeInput(ev.target.value); } })));
+};
 module.exports = Home;
 
 
