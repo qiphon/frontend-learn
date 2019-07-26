@@ -12,41 +12,51 @@ const isDev = process.env.NODE_ENV === 'development' ? true : false
 
 // css 默认项
 const defaultCssLoader = (opts, preProcessor) => {
+    // console.log(opts)
     l = [
-        isDev && { loader: 'style-loader', options: { sourceMap: true } }, // creates style nodes from JS strings
-        { loader: 'css-loader', options: { importLoaders: 2, sourceMap: true, ...opts } }, // translates CSS into CommonJS
-        {
-            loader: 'postcss-loader',
-            options: {
-                ident: 'postcss',
-                plugins: (loader) => {
-                    // console.log(loader);
-                    [
-                        require('postcss-import')({ root: loader.resourcePath }),
-                        require('postcss-flexbugs-fixes'), // 修复css bug
-                        require('autoprefixer')(),  // CSS浏览器兼容
-                        require('cssnano')(), // css minify
-                        require('postcss-preset-env')({ // lets you convert modern CSS into something most browsers can understand
-                            autoprefixer: {
-                                flexbox: 'no-2009',
-                            },
-                            stage: 3,
-                        }),
-                    ]
-                },
-                sourceMap: true
-            }
-        },
+        isDev && { loader: 'style-loader', options: { sourceMap: isDev } }, // creates style nodes from JS strings
+        { loader: 'css-loader', options: { importLoaders: 2, sourceMap: isDev, ...opts } }, // translates CSS into CommonJS
+        // {
+        //     loader: 'postcss-loader',
+        //     options: {
+        //         ident: 'postcss',
+        //         plugins: (loader) => {
+        //             // console.log(loader);
+        //             [
+        //                 require('postcss-import')({ root: loader.resourcePath }),
+        //                 require('postcss-flexbugs-fixes'), // 修复css bug
+        //                 require('autoprefixer')(),  // CSS浏览器兼容
+        //                 require('cssnano')(), // css minify
+        //                 require('postcss-preset-env')({ // lets you convert modern CSS into something most browsers can understand
+        //                     autoprefixer: {
+        //                         flexbox: 'no-2009',
+        //                     },
+        //                     stage: 3,
+        //                 }),
+        //             ]
+        //         },
+        //         sourceMap: true
+        //     }
+        // },
     ].filter(Boolean)
     if (preProcessor) {
         l.push({
             loader: preProcessor,
             options: {
-                sourceMap: !isDev,
+                sourceMap: isDev,
             },
         });
     }
     return l;
+}
+const getLocalIndent = (context, localIdentName, localName, options) => function(){
+    console.log( context, localIdentName, localName, options )
+    return 'whatever_random_class_name'
+}
+const cssModuleOpts = {
+    module: true, 
+    localIdentName: '[path][name]_[local]-[hash:base64:5]',
+    // getLocalIdent: getLocalIndent
 }
 const webpackConfig = {
     entry: {
@@ -70,13 +80,23 @@ const webpackConfig = {
             {
                 oneOf: [
                     {
-                        test: /\.less/,
+                        test: /\.less$/,
                         use: defaultCssLoader({}, 'less-loader'),
                         // { loader: 'less-loader' } // compiles Less to CSS
                     },
                     {
-                        test: /\.scss/,
+                        test: /\.scss$/,
                         use: defaultCssLoader({}, 'sass-loader'),
+                        // { loader: 'sass-loader' } // compiles scss to CSS
+                    },
+                    {
+                        test: /\.module\.scss$/,
+                        use: defaultCssLoader({ ...cssModuleOpts }, 'sass-loader'),
+                        // { loader: 'sass-loader' } // compiles scss to CSS
+                    },
+                    {
+                        test: /\.module\.scss$/,
+                        use: defaultCssLoader({ ...cssModuleOpts }, 'sass-loader'),
                         // { loader: 'sass-loader' } // compiles scss to CSS
                     }
                 ]
