@@ -112,3 +112,6 @@ counter.x // => 2
 纯函数很严格，也就是说你几乎除了计算数据以外什么都不能干，计算的时候还不能依赖除了函数参数以外的数据。
 
 3. 
+
+
+感谢[@胡子大哈](http://huziketang.mangojuice.top/books/react/)
