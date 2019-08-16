@@ -43,26 +43,10 @@ class Provider extends Component {
         return <div {...this.props}>{this.props.children}</div>
     }
 }
-// 2个map 函数
-const mapStateToProps = (state) => {
-    return {
-        ...state
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        msgChange: val => {
-            dispatch({
-                type: 'CHANGE',
-                val
-            })
-        }
-    }
-}
 
-let connects = connect(mapStateToProps, mapDispatchToProps)
+
 
 export {
-    connects,
+    connect,
     Provider
 }

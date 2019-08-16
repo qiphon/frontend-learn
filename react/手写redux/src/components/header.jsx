@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connects} from '../store/redux-react'
+import {connect} from '../store/redux-react'
 
 class Main extends Component {
     state = {
@@ -24,4 +24,21 @@ class Main extends Component {
     }
 }
 
-export default connects(Main)
+// 2个map 函数
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        msgChange: val => {
+            dispatch({
+                type: 'CHANGE',
+                val
+            })
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
