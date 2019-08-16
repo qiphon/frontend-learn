@@ -24,7 +24,7 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponent) => {
                 }
             })
         }
-        render() {
+        render() { 
             return <WrappedComponent {...this.state.allProps} />
         }
     }
@@ -39,8 +39,7 @@ class Provider extends Component {
         return { Store:this.props.Store }
     }
     render() {
-        // console.log(this.props)
-        return <div {...this.props}>{this.props.children}</div>
+        return <>{ this.props.children }</>
     }
 }
 

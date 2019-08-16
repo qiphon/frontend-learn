@@ -12,9 +12,9 @@ class App extends React.Component {
   }
   render(){
     return (
-      <Provider className="App" Store={ Store } >
+      <Provider Store={ Store } >
         <div>
-          <Header a='111' />
+          <Header {...this.props} />
         </div>
           <Main />
           <div>{ this.state.msg }</div>

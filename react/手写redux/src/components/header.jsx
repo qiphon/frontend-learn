@@ -27,7 +27,7 @@ class Main extends Component {
 // 2个map 函数
 const mapStateToProps = (state) => {
     return {
-        ...state
+        msg: state.msg
     }
 }
 const mapDispatchToProps = (dispatch) => {

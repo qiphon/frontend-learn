@@ -7,7 +7,7 @@ function createStore(reducer){
     const dispatch = action => {
         // console.log(action,'action')
         state = reducer(state, action)
-        listeners.forEach(it => it())
+        listeners.forEach(fun => fun())
     }
     dispatch()
     return {
@@ -33,7 +33,6 @@ const reducer = (state, action) =>{
                 ...state,
                 msg: action.val
             }
-        // break;
         default:
             return state
     }
