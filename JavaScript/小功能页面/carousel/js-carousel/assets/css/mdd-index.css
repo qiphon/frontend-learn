@@ -1,0 +1,338 @@
+* {
+    margin                     : 0;
+    padding                    : 0;
+    box-sizing                 : border-box;
+    -webkit-tap-highlight-color: transparent;
+    list-style                 : none;
+    text-decoration            : none;
+}
+
+body {
+    padding-top: 60px;
+    min-width: 1200px;
+    background : #fff;
+    position   : relative;
+    font-family: 'PingFangSC''Microsoft YaHei';
+}
+
+.text-center {
+    text-align: center;
+}
+
+.inline-box {
+    display: inline-block;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.top {
+    height    : 60px;
+    position  : fixed;
+    width     : 100%;
+    top       : 0;
+    left      : 0;
+    z-index   : 999;
+    background: #fff;
+    box-shadow: 0 0 20px 0 grey;
+}
+
+.top .logo {
+    height    : 52px;
+    margin-top: 6px;
+}
+
+.top .content {
+    width   : 1011px;
+    margin  : 0 auto;
+    overflow: hidden;
+}
+
+.top .nav a {
+    display      : block;
+    font-size    : 16px;
+    font-weight  : 900;
+    line-height  : 56px;
+    color        : #999;
+    border-bottom: 4px solid transparent;
+}
+
+.top .nav-item {
+    float      : left;
+    margin-left: 40px;
+}
+
+.top .nav-item.active a {
+    color       : #333;
+    border-color: #FED017;
+}
+
+/* banner */
+.banner{
+    transform: translate(0,0,0);
+}
+.banner .content-wraper{
+    position: relative;
+    overflow: hidden;
+}
+
+.banner .item {
+    transition: all linear .5s;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+}
+/* .banner .item:last-child{
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: -1;
+} */
+.banner .item img {
+    display: block;
+    width  : 100%;
+}
+
+.banner .scan-code {
+    position     : absolute;
+    top: 117px;
+    right: 160px;
+    width        : 172px;
+    padding      : 16px;
+    background   : rgba(0, 0, 0, .6);
+    border-radius: 4px;
+}
+
+.banner .scan-code p {
+    font-size     : 18px;
+    font-weight   : 500;
+    color         : rgba(255, 255, 255, 1);
+    line-height   : 25px;
+    letter-spacing: 5px;
+}
+
+.banner .scan-code img {
+    display   : block;
+    width     : 140px;
+    margin-top: 10px;
+}
+
+/* floor */
+
+.floor {
+    padding: 80px 0;
+}
+
+.floor .con {
+    width   : 1000px;
+    overflow: hidden;
+    margin  : 0 auto;
+}
+
+.floor .title img {
+    height       : 90px;
+    display      : block;
+    margin       : 0 auto 60px;
+    /* background: #fff; */
+}
+
+.process-con {
+    display: block;
+    margin : 0 auto;
+    width  : 800px;
+}
+
+#aboutus {
+    background: #F8F8F8;
+}
+
+#aboutus .con .fl {
+    width: 541px;
+}
+
+#aboutus .con .fr {
+    width: 420px;
+}
+
+.aboutus h3 {
+    height     : 28px;
+    font-size  : 20px;
+    font-weight: 500;
+    color      : rgba(51, 51, 51, 1);
+    line-height: 28px;
+}
+
+.aboutus .en-name {
+    font-size     : 16px;
+    font-weight   : 400;
+    color         : rgba(153, 153, 153, 1);
+    line-height   : 34px;
+    padding-bottom: 8px;
+    position      : relative;
+}
+
+.aboutus .en-name:before {
+    position  : absolute;
+    bottom    : 0;
+    left      : 0;
+    height    : 6px;
+    content   : ' ';
+    width     : 60px;
+    background: #FED017;
+}
+
+.aboutus .des {
+    margin-top : 30px;
+    font-size  : 14px;
+    font-weight: 400;
+    color      : rgba(51, 51, 51, 1);
+    line-height: 20px;
+}
+
+/* question   */
+#question .con {
+    font-size: 0;
+}
+
+.question .question-item {
+    height        : 190px;
+    vertical-align: top;
+    font-size     : 14px;
+    display       : inline-block;
+    width         : 482px;
+    /* padding       : 0 0 19px; */
+    margin-top    : 20px;
+    border-bottom : 1px dashed #EBEBEB;
+}
+
+/* .question .question-item:nth-child(1),
+.question .question-item:nth-child(2){
+    height: 140px;
+} */
+
+.question .question-item:nth-child(1),
+.question .question-item:nth-child(2) {
+    margin-top: 0;
+}
+
+.question .question-item:nth-child(2n) {
+    margin-left: 36px;
+}
+
+.question .question-item .title,
+.question .question-item .answer {
+    padding-left: 22px;
+    position    : relative;
+}
+
+.question .question-item .title:before,
+.question .question-item .answer:before {
+    position     : absolute;
+    left         : 0;
+    top          : 0;
+    width        : 16px;
+    height       : 16px;
+    line-height  : 16px;
+    margin-right : 6px;
+    border-radius: 2px;
+    font-weight  : bold;
+    display      : inline-block;
+    text-align   : center;
+    content      : 'Q';
+    color        : #333;
+    background   : rgba(254, 208, 23, 1);
+}
+
+.question .question-item .answer:before {
+    content   : 'A';
+    color     : #FED017;
+    background: rgba(51, 51, 51, 1);
+}
+
+.question .title {
+    margin-bottom: 6px;
+}
+
+.footer {
+    background    : #333;
+    color         : #999;
+    font-size     : 14px;
+    line-height   : 20px;
+    padding-bottom: 43px;
+}
+
+.footer .con {
+    width   : 1000px;
+    margin  : 0 auto;
+    overflow: hidden;
+    padding : 40px 0 43px;
+}
+
+.footer .line1 {
+    padding-right: 30px;
+    border-right : 1px solid #444;
+}
+
+.footer .line2 {
+    padding-left: 30px;
+}
+
+.footer .title {
+    font-size  : 16px;
+    font-weight: 500;
+    color      : #fff;
+}
+
+.footer-item .inline-box a+a,
+.footer .footer-item {
+    margin-top: 12px;
+}
+
+.footer-item .inline-box a {
+    display: block;
+}
+
+.footer-item .inline-box+.inline-box {
+    margin-left: 30px;
+}
+
+.footer .footer-item a {
+    color: #999;
+}
+
+.footer-item .inline-box p:hover,
+.footer .footer-item:hover,
+.footer .footer-item a:hover {
+    color: #fff;
+}
+
+.footer .code .title {
+    height        : 25px;
+    font-size     : 18px;
+    font-weight   : 500;
+    color         : rgba(255, 255, 255, 1);
+    line-height   : 25px;
+    letter-spacing: 5px;
+}
+
+.footer .code .code {
+    width     : 140px;
+    height    : 140px;
+    margin-top: 12px;
+    display   : block;
+}
+
+.copy-right {
+    font-size  : 12px;
+    color      : #fff;
+    line-height: 40px;
+    background : #222222;
+    height     : 40px;
+}
