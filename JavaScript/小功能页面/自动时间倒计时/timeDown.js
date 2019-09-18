@@ -1,15 +1,15 @@
 /**
- *   时间倒计时
+ *   时间倒计时 （超过24小时重新倒计时）
  *     如果时间到达指定时间 重新进入倒计时
  * 
  */
 
 
+var cha;
+var toTime = new Date('2019/10/13 00:00:00');  ////iphone下时间固定为这个格式否则会发生错误  
 var tt = setInterval(function () {
     dateDown(timeCalc(toTime))  //定义倒计时的结束时间，注意格式  
-}, 50); //定义计时器，每隔1000毫秒 也就是1秒 计算并更新 div的显示  
-var cha;
-var toTime = new Date('2018/05/13 00:00:00');  ////iphone下时间固定为这个格式否则会发生错误  
+}, 100); //定义计时器，每隔1000毫秒 也就是1秒 计算并更新 div的显示  
 function timeCalc(toTime) {
     var now = new Date();
     cha = toTime - now;
@@ -20,6 +20,7 @@ function timeCalc(toTime) {
     cha = toTime - now;
     return cha;
 }
+// 计算2个时间之间的差值
 function dateDown(cha) {
     /*var toTime = new Date(data);
     var now = new Date();
@@ -59,8 +60,8 @@ function dateDown(cha) {
     if (ms < 10) {
         ms = "0" + ms;
     }
-    document.getElementById('_d').innerHTML = h;
-    document.getElementById('_h').innerHTML = m;
-    document.getElementById('_m').innerHTML = s;
-    document.getElementById('_s').innerHTML = ms;
+    document.getElementById('_h').innerHTML = h;
+    document.getElementById('_m').innerHTML = m;
+    document.getElementById('_s').innerHTML = s;
+    document.getElementById('_ms').innerHTML = ms;
 }

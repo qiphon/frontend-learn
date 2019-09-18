@@ -10,11 +10,11 @@
 </head>
 
 <body>
-    <div class="btn" data-clipboard-text="1111111111" style="cursor:pointer;">sdfsdfsdfsdf</div>
+    <div class="btn" data-clipboard-text="1111111111" style="cursor:pointer;">复制的内容是 ‘11111111’,点击复制</div>
     <script>
         var clipboard = new ClipboardJS('.btn');
         clipboard.on("success", function (ev) {
-            console.log("成功")
+            alert("成功")
         }).on("error", function (ev) {
             console.log("失败")
         })

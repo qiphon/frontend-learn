@@ -22,6 +22,8 @@
             margin:0;
             padding:10px 20px;
             background: rgba(0,0,0,.7);
+            font-size: 14px;
+            line-height: 1.5;
             display: inline-block;
             max-width: 80%;
             color:#fff;
@@ -31,8 +33,9 @@
     </style>    
 </head>
 <body>
+    <h1>这里是toast， 点击我查看</h1>
     <div id="toast">
-        <span>圣诞快乐房价是领导看附件是考虑对方</span>
+        <span>toast</span>
     </div>
     <script>
         "use strict";
@@ -51,7 +54,10 @@
                 console.warn("param msg must be a String !");
             }
         }
-        Toast("testddd数量大幅减少dd","#toast")
+        document.querySelector('body').onclick = function(){
+            Toast("toast 提示内容","#toast")
+
+        }
     </script>
 </body>
 
