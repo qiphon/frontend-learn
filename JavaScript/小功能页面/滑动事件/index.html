@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='referrer' content='always'>
+    <meta name='author' content='qiphon'>
+    <meta name='robots' content='none'>
+    <meta name='keywords' content=''>
+    <meta name='description' content=''>
+    <meta name='renderer' content='webkit'>
+    <meta name='revisit-after' content='7 days'>
+    <meta http-equiv=widow-target Content=_top>
+    <meta name='viewport'
+        content='width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no, shrink-to-fit=no'
+        viewport-fit=cover />
+    <meta http-equiv='X-UA-Compatible' content='ie=edge,chrome=1'>
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        h1 {
+            width: 100px;
+            height: 100px;
+            background:cyan;
+            font-size: 14px;
+            margin: 300px auto;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>在我上面试试touchmove吧</h1>
+    <script>
+        // 滑动事件
+        /*
+        *   @params  el      DOM   点击的元素
+        *   @params  fncontainer obj 事件对象集合
+        *              left   Function  向左滑动的时候触发   
+        *              right  Function  向右滑动的时候触发   
+        *              up     Function  向上滑动的时候触发   
+        *              down   Function  向下滑动的时候触发   
+        *   @params  offset  Num  事件触发的值
+        */
+        function touchevent(el, fncontainer = {}, offset) {
+            var el = el ? el : window;
+            var offset = offset ? offset : 50;
+            var startX, startY,
+                endX = 0,
+                endY = 0;
+            el.addEventListener('touchstart', function (e) {
+                // console.log(e)
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                // console.log("startX->"+startX,"startY ->"+startY)
+            }, false);
+            el.addEventListener('touchmove', function (e) {
+                endX = e.touches[0].clientX;
+                endY = e.touches[0].clientY;
+                // console.log("endX ->"+endX,"endY ->"+endY)
+            }, false);
+            el.addEventListener('touchend', function (e) {
+                var lengthX = endX == 0 ? 0 : Math.abs(startX - endX);
+                var lengthY = endY == 0 ? 0 : Math.abs(startY - endY);
+                // console.log("lengthX"+lengthX,"lengthY"+lengthY)
+                lengthX > lengthY && lengthX >= offset && 
+                    ((startX - endX) > 0 ? 
+                        (fncontainer.left && (fncontainer.left).call(el)) : 
+                        (fncontainer.right && (fncontainer.right).call(el) ));
+
+                lengthY > lengthX && lengthY >= offset && 
+                    ((startY - endY) > 0 ? 
+                        (fncontainer.up && (fncontainer.up).call(el) ) : 
+                        (fncontainer.down && (fncontainer.down).call(el)));
+
+            }, false);
+        }
+        touchevent(document.querySelector('h1'), {
+            left: function(){
+                console.log('left move' ,this.style.left)
+                this.style.cssText += ';left:' + (Number(this.style.left.slice(0, -2)) - 10) + 'px';
+            },
+            right: function(){
+                console.log('right move')
+                this.style.cssText += ';left:' + (Number(this.style.left.slice(0, -2)) + 10) + 'px';
+            },
+            up: function(){
+                console.log('up move')
+                this.style.cssText += ';top:' + (Number(this.style.top.slice(0, -2)) - 10) + 'px';
+            },
+            down: function(){
+                this.style.cssText += ';top:' + (Number(this.style.top.slice(0, -2)) + 10) + 'px';
+                console.log('down move')
+            },
+        })
+    </script>
+</body>
+
+</html>
