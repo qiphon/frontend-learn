@@ -138,10 +138,11 @@ React Native 中已经内置了XMLHttpRequest API(也就是俗称的 ajax)。一
 
 #### 黄屏警告
 >应用内的警告会以全屏黄色显示在应用中（调试模式下），我们称为黄屏（yellow box）报错。点击警告可以查看详情或是忽略掉。和红屏报警类似，你可以使用console.warn()来手动触发黄屏警告。在默认情况下，开发模式中启用了黄屏警告。可以通过以下代码关闭：
-```
 
+```
 console.disableYellowBox = true;
 console.warn('YellowBox is disabled.');
+
 ```
 你也可以通过代码屏蔽指定的警告，像下面这样调用 ignoreWarnings 方法，参数为一个数组：
 
@@ -157,6 +158,7 @@ YellowBox.ignoreWarnings(['Warning: ...']);
 Platform.OS在 iOS 上会返回ios，而在 Android 设备或模拟器上则会返回android。
 
 Platform下面含有的属性
+
 ```
 OS: "android"
 Version: 27
