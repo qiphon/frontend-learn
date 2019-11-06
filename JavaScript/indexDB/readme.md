@@ -35,21 +35,29 @@ IndexedDB 鼓励使用的基本模式如下所示：
 ### 接收和修改数据
 
 - IDBTransaction
-表示一个事务。在数据库上创建一个事务，指定作用域（例如要访问的存储对象），并确定所需的访问类型（只读或读写）。
+
+    表示一个事务。在数据库上创建一个事务，指定作用域（例如要访问的存储对象），并确定所需的访问类型（只读或读写）。
 - IDBRequest
-处理数据库请求并提供对结果访问的通用接口。
+
+    处理数据库请求并提供对结果访问的通用接口。
 - IDBObjectStore
-表示允许访问通过主键查找的IndexedDB数据库中的一组数据的对象存储区。
+
+    表示允许访问通过主键查找的IndexedDB数据库中的一组数据的对象存储区。
 - IDBIndex
-也是为了允许访问IndexedDB数据库中的数据子集，但使用索引来检索记录而不是主键。这有时比使用IDBObjectStore更快。
+
+    也是为了允许访问IndexedDB数据库中的数据子集，但使用索引来检索记录而不是主键。这有时比使用IDBObjectStore更快。
 - IDBCursor
-迭代对象存储和索引。
+
+    迭代对象存储和索引。
 - IDBCursorWithValue  （可能不支持）
-迭代对象存储和索引并返回游标的当前值。
+
+    迭代对象存储和索引并返回游标的当前值。
 - IDBKeyRange（可能不支持）
-定义可用于从特定范围内的数据库检索数据的键范围。
+
+    定义可用于从特定范围内的数据库检索数据的键范围。
 - IDBLocaleAwareKeyRange （可能不支持）
-定义一个键范围，可用于从特定范围内的数据库中检索数据，并根据为特定索引指定的语言环境的规则进行排序（详见createIndex()的参数）。这个接口不再是2.0规范的一部分。
+
+    定义一个键范围，可用于从特定范围内的数据库中检索数据，并根据为特定索引指定的语言环境的规则进行排序（详见createIndex()的参数）。这个接口不再是2.0规范的一部分。
 
 
 ### 自定义事件接口
@@ -62,21 +70,49 @@ IndexedDB 鼓励使用的基本模式如下所示：
 规范的早期版本还定义了这些现在已删除的接口。这些文档便于您需要更新以前编写的代码：
 
 - IDBVersionChangeRequest 
-表示更改数据库版本的请求。改变数据库版本的方法已经改变了（通过调用IDBFactory.open而非IDBDatabase.setVersion），接口IDBOpenDBRequest现在拥有IDBVersionChangeRequest。
-- IDBDatabaseException  
-表示执行数据库操作时可能遇到的异常情况。
-- IDBTransactionSync 
-同步版本的IDBTransaction。
-- IDBObjectStoreSync 
-同步版本的IDBObjectStore。
-- IDBIndexSync 
-同步版本的IDBIndex。
-- IDBFactorySync 
-同步版本的IDBFactory。
-- IDBEnvironmentSync 
-同步版本的IDBEnvironment。
-- IDBDatabaseSync 
-同步版本的IDBDatabase。
-- IDBCursorSync 
-同步版本的IDBCursor。
 
+    表示更改数据库版本的请求。改变数据库版本的方法已经改变了（通过调用IDBFactory.open而非IDBDatabase.setVersion），接口IDBOpenDBRequest现在拥有IDBVersionChangeRequest。
+- IDBDatabaseException  
+
+    表示执行数据库操作时可能遇到的异常情况。
+- IDBTransactionSync 
+
+    同步版本的IDBTransaction。
+- IDBObjectStoreSync 
+
+    同步版本的IDBObjectStore。
+- IDBIndexSync 
+
+    同步版本的IDBIndex。
+- IDBFactorySync 
+
+    同步版本的IDBFactory。
+- IDBEnvironmentSync 
+
+    同步版本的IDBEnvironment。
+- IDBDatabaseSync 
+
+    同步版本的IDBDatabase。
+- IDBCursorSync 
+
+    同步版本的IDBCursor。
+
+## 浏览器兼容写法
+
+```js 
+// In the following line, you should include the prefixes of implementations you want to test.
+window.indexedDB = window.indexedDB || 
+                    window.mozIndexedDB || 
+                    window.webkitIndexedDB || 
+                    window.msIndexedDB;
+// DON'T use "var indexedDB = ..." if you're not in a function.
+// Moreover, you may need references to some window.IDB* objects:
+window.IDBTransaction = window.IDBTransaction || 
+                        window.webkitIDBTransaction || 
+                        window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || 
+                    window.webkitIDBKeyRange || 
+                    window.msIDBKeyRange
+// (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
+
+```
