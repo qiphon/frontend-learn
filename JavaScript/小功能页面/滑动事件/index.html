@@ -23,10 +23,11 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
+
         h1 {
             width: 100px;
             height: 100px;
-            background:cyan;
+            background: cyan;
             font-size: 14px;
             margin: 300px auto;
             position: relative;
@@ -47,14 +48,14 @@
         *              down   Function  向下滑动的时候触发   
         *   @params  offset  Num  事件触发的值
         */
-        function touchevent(el, fncontainer = {}, offset) {
-            var el = el ? el : window;
-            var offset = offset ? offset : 50;
+        function touchevent(el = window, fncontainer = {}, offset = 50) {
             var startX, startY,
                 endX = 0,
-                endY = 0;
+                endY = 0,
+                startT = 0;
             el.addEventListener('touchstart', function (e) {
                 // console.log(e)
+                startT = +new Date()
                 startX = e.touches[0].clientX;
                 startY = e.touches[0].clientY;
                 // console.log("startX->"+startX,"startY ->"+startY)
@@ -64,36 +65,38 @@
                 endY = e.touches[0].clientY;
                 // console.log("endX ->"+endX,"endY ->"+endY)
             }, false);
-            el.addEventListener('touchend', function (e) {
+            el.addEventListener('touchend', function (e) { //debugger
                 var lengthX = endX == 0 ? 0 : Math.abs(startX - endX);
                 var lengthY = endY == 0 ? 0 : Math.abs(startY - endY);
                 // console.log("lengthX"+lengthX,"lengthY"+lengthY)
-                lengthX > lengthY && lengthX >= offset && 
-                    ((startX - endX) > 0 ? 
-                        (fncontainer.left && (fncontainer.left).call(el)) : 
-                        (fncontainer.right && (fncontainer.right).call(el) ));
+                if (+new Date() - startT < 600) {
+                    lengthX > lengthY && lengthX >= offset &&
+                        ((startX - endX) > 0 ?
+                            (fncontainer.left && (fncontainer.left).call(el)) :
+                            (fncontainer.right && (fncontainer.right).call(el)));
 
-                lengthY > lengthX && lengthY >= offset && 
-                    ((startY - endY) > 0 ? 
-                        (fncontainer.up && (fncontainer.up).call(el) ) : 
-                        (fncontainer.down && (fncontainer.down).call(el)));
-
+                    lengthY > lengthX && lengthY >= offset &&
+                        ((startY - endY) > 0 ?
+                            (fncontainer.up && (fncontainer.up).call(el)) :
+                            (fncontainer.down && (fncontainer.down).call(el)));
+                }
+                startX = startY = endX = endY = startT = 0
             }, false);
         }
         touchevent(document.querySelector('h1'), {
-            left: function(){
-                console.log('left move' ,this.style.left)
+            left: function () {
+                console.log('left move', this.style.left)
                 this.style.cssText += ';left:' + (Number(this.style.left.slice(0, -2)) - 10) + 'px';
             },
-            right: function(){
+            right: function () {
                 console.log('right move')
                 this.style.cssText += ';left:' + (Number(this.style.left.slice(0, -2)) + 10) + 'px';
             },
-            up: function(){
+            up: function () {
                 console.log('up move')
                 this.style.cssText += ';top:' + (Number(this.style.top.slice(0, -2)) - 10) + 'px';
             },
-            down: function(){
+            down: function () {
                 this.style.cssText += ';top:' + (Number(this.style.top.slice(0, -2)) + 10) + 'px';
                 console.log('down move')
             },
