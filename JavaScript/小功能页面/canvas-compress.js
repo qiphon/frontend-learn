@@ -66,6 +66,7 @@ function canvasPress2(file, type = "image/jpeg", wLimit = 2000) {
             // console.dir(file.type);return;
             canvas.toBlob(function (Blob) {
                 resolve(Blob)
+                // files = new File([blob], file.name + '.png', { type: 'image/png' })
             }, file.type, .5)
         })
 }

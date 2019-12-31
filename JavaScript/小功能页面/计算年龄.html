@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算年龄</title>
+</head>
+<body>
+    <input type="text" maxlength="18" value="199919199512451111">
+    <div>age: <span id="age"></span></div>
+    <script>
+        let id  = document.querySelector('input').value
+        var birth = id.slice(6, 14)
+        function caculateAge(id){
+            let now = new Date()
+            let year = now.getFullYear() - id.slice(0,4)
+            let month = now.getMonth() + 1 - id.slice(4,6)
+            let day = now.getDate() - id.slice(6)
+            let caculate = 0
+            if(month === 0){
+                caculate = day >= 0 ? 0 : -1 
+            }else if(month < 0) {
+                caculate = -1
+            }
+            let age = year + caculate 
+            return age 
+        }
+        let age = caculateAge(birth)
+        document.querySelector('#age').innerHTML = age
+    </script>
+</body>
+</html>
