@@ -1,0 +1,30 @@
+/*平行四边形*/
+/*<div class="test">
+	<div>呵呵</div>
+</div>
+.test{
+	width: 100px;
+	height: 100px;
+	background-color: yellowgreen;
+	transform: skewX(45deg);
+}
+.test > div{
+	padding: 20px;
+	transform: skewX(-45deg);
+}*/
+.test{
+	position: relative;
+	width: 100px;
+	height: 100px;
+}
+.test::before{
+	width: 100px;
+	height: 100px;
+	content: '';
+	position: absolute;
+	top:0;
+	left: 0;
+	z-index: -1;
+	background: #58a;
+	transform: skew(45deg);
+}

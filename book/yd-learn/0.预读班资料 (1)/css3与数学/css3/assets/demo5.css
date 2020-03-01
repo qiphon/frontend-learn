@@ -1,0 +1,37 @@
+body{
+	margin:0;
+	padding: 0;
+	background:url('./bg.jpg');
+}
+.test{
+	position: relative;
+	width: 400px;
+	height: 300px;
+	overflow: hidden;
+	margin: 0 auto ;
+	margin-top: 100px;
+		border-radius: 5px;
+		padding:5px;
+	background: hsla(0,0%,100%,.2);
+}
+.test::before{
+	background:url('./bg.jpg') 0 / cover fixed;
+}
+.test::before{
+	content: '';
+	position: absolute;
+	width: 400px;
+	height: 300px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+/*background:red;*/
+/*margin: -40px;*/
+transform: scale(1.1);
+opacity:0.5;
+/*	opacity: 0.5;
+	z-index:-1;*/
+	filter: blur(10px);
+	z-index:-1;
+}

@@ -1,0 +1,19 @@
+/*.test{
+	width: 400px;
+	height: 400px;
+	transform: rotate(45deg);
+	background: orange;
+	overflow: hidden;
+}
+<img src="./assets/dog.png">
+.test > img{
+	transform: rotate(-45deg) scale(1.42);
+}*/
+
+.test > img{
+	clip-path: polygon(50% 0 ,100% 50%,50% 100%,0 50%);
+	transition: 1s clip-path;
+}
+.test > img:hover{
+	clip-path: polygon(0 0 ,100% 0,100% 100%,0 100%);
+}
